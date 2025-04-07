@@ -1,6 +1,7 @@
-import { cart, removeFromCart} from '../data/cart.js';
+import { calculateCartQuantity, cart, removeFromCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurency } from './utils/money.js';
+
 
 let cartSummaryHTML = '';
 
@@ -8,6 +9,7 @@ cart.forEach((cartItem) => {
   const productId = cartItem.productId;
   
   let matchingProduct;
+
 
   products.forEach((product) => {
     if (product.id === productId) {
@@ -96,16 +98,32 @@ cartSummaryHTML += `
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
 document.querySelectorAll('.js-delete-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      console.log(productId);
+      removeFromCart(productId);
 
-    .forEach((link) => {
-      link.addEventListener('click', () => {
-       const productId = link.dataset.productId;
-        console.log(productId);
-        removeFromCart(productId);
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
 
-        const container = document.querySelector(
-          `.js-cart-item-container-${productId}`
-        );
-        container.remove();
-      });
+      container.remove();
+
+      updateCartQuantity();
     });
+  });
+    
+updateCartQuantity();
+
+function updateCartQuantity() {
+  const quantity = calculateCartQuantity(cart);
+
+  if (quantity === 0) {
+    document.querySelector('.js-checkout-quantity')
+  .innerHTML = `cart is empty`
+  } else {
+    document.querySelector('.js-checkout-quantity')
+    .innerHTML = `${quantity} items`
+  }
+};

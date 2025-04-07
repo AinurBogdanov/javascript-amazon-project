@@ -1,4 +1,4 @@
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurency } from './utils/money.js';
 
@@ -78,29 +78,28 @@ function displayAddeMassage(productId) {
   },2000);      
 } 
 
+updateCartQuantity();
+
 function updateCartQuantity() {
   let cartQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
+  
+  cartQuantity = calculateCartQuantity(cart);
 
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity
 };
 
 document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
 
-.forEach((button) => {
-  button.addEventListener('click', () => {
+      const { productId } = button.dataset;
 
-    const { productId } = button.dataset;
-
-    addToCart(productId);
-    updateCartQuantity();
-    displayAddeMassage(productId);
+      addToCart(productId);
+      updateCartQuantity();
+      displayAddeMassage(productId);
+    });
   });
-});
 
 
 
