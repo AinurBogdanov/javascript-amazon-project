@@ -656,5 +656,34 @@ const products = [
       "apparel",
       "mens"
     ]
+  }, {
+    id: "id-added-1",
+    image: "images/products/backpack.jpg",
+    name: "backpack",
+    rating: {
+      stars: 5,
+      count: 21
+    },
+    priceCents:1000,
+    keywords: [
+      "schol tools",
+      "backpack",
+      "rucksuk",
+      "goods for kids"
+    ]
+  }, {
+    id: "id-added-2",
+    image: "images/products/umbrella.jpg",
+    name: "cool umbrella",
+    rating: {
+      stars: 2,
+      count: 1
+    },
+    priceCents: 2000,
+    keywords: [
+      "rainy",
+      "umbrella",
+      "protection",
+    ]
   }
 ];
