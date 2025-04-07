@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js';
 
 let productsHTML = '';
 
@@ -53,21 +54,13 @@ products.forEach((product) => {
   </div>`;
 });
 
-let timeOutId;
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
 //ADING POP-UP FOR ADDED ITEMS
 
 
-const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
-clearTimeout(timeOutId)
-
-jsCartMassage.classList.add('added-to-cart-visible')
-
-timeOutId = setTimeout(() => {
-  jsCartMassage.classList.remove('added-to-cart-visible')
-},2000)
+let timeOutId;  
 
 //ADING ITEM TO THE CART
 
@@ -76,9 +69,10 @@ document.querySelectorAll('.js-add-to-cart')
   button.addEventListener('click', () => {
 
     const { productId } = button.dataset;
-    
 
     let matchingItem;
+
+    console.log(matchingItem)
 
     cart.forEach((item) => {
       if (productId === item.productId) {
@@ -88,6 +82,9 @@ document.querySelectorAll('.js-add-to-cart')
 
     const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`)
     .value);
+    document.querySelector(`.js-quantity-selector-${productId}`)
+    .value = 1;
+
 
     if (matchingItem) {
 
@@ -107,6 +104,21 @@ document.querySelectorAll('.js-add-to-cart')
 
       document.querySelector('.js-cart-quantity')
       .innerHTML = cartQuantity
+
+
+      function displayAddeMassage() {
+        const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
+        
+        jsCartMassage.classList.add('added-to-cart-visible')
+
+        clearTimeout(timeOutId);
+        
+        timeOutId = setTimeout(() => {
+          jsCartMassage.classList.remove('added-to-cart-visible')
+        },2000);      
+      } 
+      
+      displayAddeMassage();
   });
 });
 
