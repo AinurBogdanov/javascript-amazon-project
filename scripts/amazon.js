@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
 let productsHTML = '';
@@ -55,7 +55,6 @@ products.forEach((product) => {
   </div>`;
 });
 
-
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
 //ADING POP-UP FOR ADDED ITEMS
@@ -65,61 +64,39 @@ let timeOutId;
 
 //ADING ITEM TO THE CART
 
+
+function displayAddeMassage(productId) {
+  const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
+  
+  jsCartMassage.classList.add('added-to-cart-visible')
+
+  clearTimeout(timeOutId);
+  
+  timeOutId = setTimeout(() => {
+    jsCartMassage.classList.remove('added-to-cart-visible')
+  },2000);      
+} 
+
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity')
+  .innerHTML = cartQuantity
+};
+
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button) => {
   button.addEventListener('click', () => {
 
     const { productId } = button.dataset;
 
-    let matchingItem;
-
-    console.log(matchingItem)
-
-    cart.forEach((item) => {
-      if (productId === item.productId) {
-        matchingItem = item;
-      }
-    });
-
-    const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`)
-    .value);
-    document.querySelector(`.js-quantity-selector-${productId}`)
-    .value = 1;
-
-
-    if (matchingItem) {
-
-      matchingItem.quantity += quantity;
-    } else {
-      cart.push({
-        productId,
-        quantity,
-      });
-    }
-
-    let cartQuantity = 0;
-
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-
-      document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity
-
-
-      function displayAddeMassage() {
-        const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
-        
-        jsCartMassage.classList.add('added-to-cart-visible')
-
-        clearTimeout(timeOutId);
-        
-        timeOutId = setTimeout(() => {
-          jsCartMassage.classList.remove('added-to-cart-visible')
-        },2000);      
-      } 
-      
-      displayAddeMassage();
+    addToCart(productId);
+    updateCartQuantity();
+    displayAddeMassage(productId);
   });
 });
 
