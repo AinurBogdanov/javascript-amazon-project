@@ -7,7 +7,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) ||
   quantity: 1
 }];
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
@@ -57,3 +57,11 @@ export function calculateCartQuantity(cart) {
     cartQuantity += cartItem.quantity;
     });
     return cartQuantity;}
+
+export function updateItemQuantity(productId,newQuantity)  {
+  cart.forEach((item) => {
+    if (item.productId === productId ) {
+      item.quantity = newQuantity;
+    }
+   })
+};

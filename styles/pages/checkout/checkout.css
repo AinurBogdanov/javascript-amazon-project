@@ -119,6 +119,31 @@
   margin-left: 3px;
 }
 
+.quantity-input {
+  width:30px;
+} 
+
+
+.js-editing-quantity .quantity-input,
+.js-editing-quantity .save-link{
+  display: initial;
+}
+
+.js-editing-quantity .update-quantity-link,
+.js-editing-quantity .quantity-label,
+.save-link,.quantity-input {
+ display: none;
+}
+
+.arror-quantity-massage {
+  color: rgb(244, 8, 8);
+  
+}
+.dissapear-class {
+  display:none; 
+}
+
+
 @media (max-width: 1000px) {
   .delivery-options {
     /* grid-column: 1 means this element will be placed
