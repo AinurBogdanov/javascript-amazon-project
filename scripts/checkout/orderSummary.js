@@ -6,7 +6,8 @@ import { formatCurency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js'
-
+ 
+const today = dayjs()
 export function renderOrderSummary() {
    let cartSummaryHTML = '';
  
