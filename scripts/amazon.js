@@ -58,12 +58,8 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
-//ADING POP-UP FOR ADDED ITEMS
-
 
 let timeOutId;  
-
-//ADING ITEM TO THE CART
 
 
 function displayAddeMassage(productId) {
@@ -74,7 +70,7 @@ function displayAddeMassage(productId) {
   clearTimeout(timeOutId);
   
   timeOutId = setTimeout(() => {
-    jsCartMassage.classList.remove('added-to-cart-visible')
+    jsCartMassage.classList.remove(`added-to-cart-visible`)
   },2000);      
 } 
 
