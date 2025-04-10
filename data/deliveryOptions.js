@@ -1,4 +1,6 @@
 import dayjs from 'https://esm.sh/dayjs';
+import isWeekend from '../scripts/utils/day.js';
+
 export const deliveryOptions = [{
   id: '1',
   deliveryDays: 7,
@@ -25,15 +27,17 @@ export function getDeliveryOption(deliveryOptionId) {
   return deliveryOption || deliveryOptions[0];
 };
 
-export function calculateDeliveryDate(deliveryOption,today) {
-  today = dayjs();
+export function calculateDeliveryDate(deliveryOption) {
+  let remainingDays = deliveryOption.deliveryDays;
+  let deliveryDate = dayjs();
 
-  const deliveryDate = today.add(
-    deliveryOption.deliveryDays,
-    'days'
-  );
-  const dateString = deliveryDate.format(
-    'dddd, MMMM D'
-  );
-  return dateString;
+  while (remainingDays > 0) {
+    deliveryDate = deliveryDate.add(1 ,'day');
+
+    if (!isWeekend(deliveryDate)) {
+      remainingDays--;
+    }
+  }
+
+  return deliveryDate.format('MMMM D');
 }

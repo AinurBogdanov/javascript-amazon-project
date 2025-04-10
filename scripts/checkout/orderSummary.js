@@ -7,20 +7,20 @@ import { formatCurency } from '../utils/money.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js'
 import renderCheckoutHeader from './checkoutHeader.js'
+import dayjs from 'https://esm.sh/dayjs';
 
 
-
-let today;
 export function renderOrderSummary() {
    let cartSummaryHTML = '';
- 
+   let today = dayjs()
+
    cart.forEach((cartItem) => {
      const productId = cartItem.productId;
      const matchingProduct = getProduct(productId);
 
      const deliveryOptionId = cartItem.deliveryOptionId;
      const deliveryOption = getDeliveryOption(deliveryOptionId);    
-     const dateString =  calculateDeliveryDate(deliveryOption)
+     const dateString =  calculateDeliveryDate(deliveryOption);
 
      cartSummaryHTML += `
        <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
