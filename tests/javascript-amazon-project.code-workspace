@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "javascript-amazon-project",
+			"path": ".."
+		},
+		{
+			"name": "jasmine-standalone-5.1.1",
+			"path": "../../../Downloads/jasmine-standalone-5.1.1"
+		}
+	],
+	"settings": {}
+}
