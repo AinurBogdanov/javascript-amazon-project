@@ -1,15 +1,4 @@
-export function getDeliveryOption(deliveryOptionId) {
-  let deliveryOption;
- 
-  deliveryOptions.forEach((option) => {
-    if (option.id === deliveryOptionId) {
-      deliveryOption = option;
-    }
-  });
-
-  return deliveryOption || deliveryOptions[0];
-};
-
+import dayjs from 'https://esm.sh/dayjs';
 export const deliveryOptions = [{
   id: '1',
   deliveryDays: 7,
@@ -24,6 +13,27 @@ export const deliveryOptions = [{
   priceCents: 999
 }];
 
-function calculateDeliveryDate() {
-  
+export function getDeliveryOption(deliveryOptionId) {
+  let deliveryOption;
+ 
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      deliveryOption = option;
+    }
+  });
+
+  return deliveryOption || deliveryOptions[0];
+};
+
+export function calculateDeliveryDate(deliveryOption,today) {
+  today = dayjs();
+
+  const deliveryDate = today.add(
+    deliveryOption.deliveryDays,
+    'days'
+  );
+  const dateString = deliveryDate.format(
+    'dddd, MMMM D'
+  );
+  return dateString;
 }

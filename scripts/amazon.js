@@ -2,17 +2,7 @@ import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurency } from './utils/money.js';
 
-import isSutSun from './utils/day.js'
-import dayjs from 'https://esm.sh/dayjs';
-
-const superDay = dayjs().add(3,'days');
-
-// isSutSun(superDay); Some practice with day.js
-
-
-
 let productsHTML = '';
-
 products.forEach((product) => {
   productsHTML += `
   <div class="product-container">
@@ -64,12 +54,14 @@ products.forEach((product) => {
     </button>
   </div>`;
 });
-
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
-  
+
 
 let timeOutId;  
 
+updateCartQuantity();
+
+addToCartButton();
 
 function displayAddeMassage(productId) {
   const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
@@ -82,9 +74,6 @@ function displayAddeMassage(productId) {
     jsCartMassage.classList.remove(`added-to-cart-visible`)
   },2000);      
 } 
-
-updateCartQuantity();
-
 function updateCartQuantity() {
   let cartQuantity = 0;
   
@@ -93,20 +82,17 @@ function updateCartQuantity() {
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity
 };
-
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-
-      const { productId } = button.dataset;
-
-      addToCart(productId);
-      updateCartQuantity();
-      displayAddeMassage(productId);
+function addToCartButton() {
+  document.querySelectorAll('.js-add-to-cart')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+  
+        const { productId } = button.dataset;
+  
+        addToCart(productId);
+        updateCartQuantity();
+        displayAddeMassage(productId);
+      })
     });
-  });
 
-
-
-
-
+}

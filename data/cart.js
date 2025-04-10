@@ -13,60 +13,61 @@ export function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-  export function addToCart(productId) {
-    let matchingItem;
+export function addToCart(productId) {
+  let matchingItem;
 
-    cart.forEach((cartItem) => {
-      if (productId === cartItem.productId) {
-        matchingItem = cartItem;
-      }
-    });
-
-    const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`)
-    .value);
-    
-    document.querySelector(`.js-quantity-selector-${productId}`)
-    .value = 1;
-
-    if (matchingItem) {
-      matchingItem.quantity += quantity;
-    } else {
-      cart.push({
-        productId,
-        quantity,
-        deliveryOptionId: '1'
-      });
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
     }
+  });
 
-    saveToStorage();
+  const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`)
+  .value);
+  
+  document.querySelector(`.js-quantity-selector-${productId}`)
+  .value = 1;
+
+  if (matchingItem) {
+    matchingItem.quantity += quantity;
+  } else {
+    cart.push({
+      productId,
+      quantity,
+      deliveryOptionId: '1'
+    });
   }
 
-  export function removeFromCart (productId) {
-    const newCart = [];
-    cart.forEach((cartItem) => {
-      if (cartItem.productId !== productId) {
-        newCart.push(cartItem);
-      }
-    });
+  saveToStorage();
+}
 
-    cart = newCart;
+export function removeFromCart (productId) {
+  const newCart = [];
+  cart.forEach((cartItem) => {
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem);
+    }
+  });
 
-    saveToStorage();
-  };
+  cart = newCart;
+
+  saveToStorage();
+};
 
 export function calculateCartQuantity(cart) {
   let cartQuantity = 0;
    cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-    });
-    return cartQuantity;}
+   cartQuantity += cartItem.quantity;
+   });
+  return cartQuantity;
+}
 
 export function updateItemQuantity(productId,newQuantity)  {
   cart.forEach((item) => {
     if (item.productId === productId ) {
       item.quantity = newQuantity;
     }
-   })
+  })
 };
 
 export function updateDeliveryOption(productId, deliveryOptionId) {

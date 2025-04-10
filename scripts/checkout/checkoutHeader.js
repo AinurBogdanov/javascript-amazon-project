@@ -2,10 +2,6 @@ import { calculateCartQuantity, cart } from '../../data/cart.js';
 
 
 export default function renderCheckoutHeader() {
-
-
-
-
   let checkoutHeadrHTML = `
   <div class="header-content">
     <div class="checkout-header-left-section">
@@ -27,16 +23,4 @@ export default function renderCheckoutHeader() {
     `; 
 
   document.querySelector('.checkout-header').innerHTML = checkoutHeadrHTML;
-
-
-
-
-
-
-
-
-
-
-
-
 }
