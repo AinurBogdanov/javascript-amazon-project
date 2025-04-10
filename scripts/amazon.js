@@ -2,6 +2,15 @@ import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurency } from './utils/money.js';
 
+import isSutSun from './utils/day.js'
+import dayjs from 'https://esm.sh/dayjs';
+
+const superDay = dayjs().add(3,'days');
+
+// isSutSun(superDay); Some practice with day.js
+
+
+
 let productsHTML = '';
 
 products.forEach((product) => {
