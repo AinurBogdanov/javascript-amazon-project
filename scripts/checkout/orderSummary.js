@@ -171,6 +171,7 @@ export function renderOrderSummary() {
          const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
  
          link.addEventListener('click', () => {
+
            setNewQuantity(productId);
            renderCheckoutHeader();
          });
@@ -190,27 +191,13 @@ export function renderOrderSummary() {
      
      document.querySelector(`.js-cart-item-container-${productId}`)
        .classList.remove('js-editing-quantity');
- 
-     const quantityLabel = document.querySelector(`.js-cart-item-container-${productId} .quantity-label`)
- 
-     if (newQuantity <= 0 || isNaN(newQuantity)) {
-       quantityLabel.innerHTML = 1;
-       newQuantity = 1;
-       document.querySelector(`.js-cart-item-container-${productId} .arror-quantity-massage`)
-       .classList.remove('dissapear-class');
-     } else {
-       document.querySelector(`.js-cart-item-container-${productId} .arror-quantity-massage`)
-       .classList.add('dissapear-class');
-     }
- 
-     updateItemQuantity(productId,newQuantity);
- 
 
+     if (newQuantity <= 0 || isNaN(newQuantity)) {
+       newQuantity = 1;
+    
+     }
+     updateItemQuantity(productId,newQuantity);
      saveToStorage();
-    //  updateCartQuantity();
- 
-    //  document.querySelector(`.js-cart-item-container-${productId} .quantity-label`)
-    //  .innerHTML = newQuantity;
     renderPaymentSummary();
     renderOrderSummary();
 
