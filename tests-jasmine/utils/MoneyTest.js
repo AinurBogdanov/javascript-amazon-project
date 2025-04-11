@@ -1,4 +1,4 @@
-import {formatCurency} from '../scripts/utils/money.js';
+import {formatCurency} from '../../scripts/utils/money.js';
 
 describe('test suite format curency', () => {
   it('converts cents into $',() => {
