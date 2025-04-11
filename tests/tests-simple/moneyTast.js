@@ -1,4 +1,4 @@
-import {formatCurency} from '../scripts/utils/money.js';
+import {formatCurency} from '../../scripts/utils/money.js';
 
 console.log('test suite: formatCurency')
 
