@@ -57,7 +57,7 @@ export function renderOrderSummary() {
                <span class="link-primary save-link" data-save-link-id="${matchingProduct.id}">
                  Save
                </span>
-               <span class=" delete-quantity-link ink-primary js-delete-link 
+               <span class=" delete-quantity-link link-primary js-delete-link 
                 js-delete-link-${matchingProduct.id} "
                 data-product-id="${matchingProduct.id}"
                 >
@@ -130,11 +130,12 @@ export function renderOrderSummary() {
             //    `.js-cart-item-container-${productId}`
             //  );
             //  container.remove();
-            //  updateCartQuantity();
+
+         
 
          removeFromCart(productId);
 
-        //  renderCheckoutHeader();
+         renderCheckoutHeader();
          renderOrderSummary();
          renderPaymentSummary();
 
