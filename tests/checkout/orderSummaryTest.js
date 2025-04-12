@@ -82,4 +82,17 @@ describe('test suite: renderOrderSummary',() => {
   ).toContain('Intermediate Size Basketball');
 
   });
+
+  it('updates delivery option', () => {
+    document.querySelector(`.js-delivery-option-${productId1}-3`).click();
+    let inputEl = document.querySelector(`.js-delivery-option-input-${productId1}-3`);
+    let paymentTotal = document.querySelector('.js-payment-summary-total').innerText;
+    let paymentShipping = document.querySelector('.js-payment-summary-shipping').innerText;
+    expect(inputEl.checked).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId1);
+    expect(cart[0].deliveryOptionId).toEqual('3');
+    expect(paymentTotal).toContain('$63.50')
+    expect(paymentShipping).toContain('$14.98')
+    });
 });

@@ -28,35 +28,35 @@ export function renderPaymentSummary() {
 
     <div class="payment-summary-row">
       <div>Items (${calculateCartQuantity(cart)})</div>
-      <div class="payment-summary-money">
+      <div class="payment-summary-money js-payment-total-no-shipping">
        $${formatCurency(productPriceCents)}
       </div>
     </div>
 
     <div class="payment-summary-row">
       <div>Shipping &amp; handling:</div>
-      <div class="payment-summary-money">
+      <div class="payment-summary-money js-payment-summary-shipping">
         $${formatCurency(shippingPriceCents)}
       </div>
     </div>
 
     <div class="payment-summary-row subtotal-row">
       <div>Total before tax:</div>
-      <div class="payment-summary-money">
+      <div class="payment-summary-money js-payment-before-tax">
        $${formatCurency(totalBeforeTax)}
       </div>
     </div>
 
     <div class="payment-summary-row">
       <div>Estimated tax (10%):</div>
-      <div class="payment-summary-money">
+      <div class="payment-summary-money js-estimated-tax">
       $${formatCurency(taxCents)}
       </div>
     </div>
 
     <div class="payment-summary-row total-row">
       <div>Order total:</div>
-      <div class="payment-summary-money">
+      <div class="payment-summary-money js-payment-summary-total">
         $${formatCurency(totalCents)}
       </div>
     </div>

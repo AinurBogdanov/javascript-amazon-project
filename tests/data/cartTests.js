@@ -1,4 +1,4 @@
-import {addToCart, cart, loadFromStorage, removeFromCart} from '../../data/cart.js';
+import {addToCart, cart, loadFromStorage, removeFromCart, saveToStorage, updateDeliveryOption} from '../../data/cart.js';
 import { formatCurency } from '../../scripts/utils/money.js';
 
 describe('test suite add to cart', () => {
@@ -32,6 +32,20 @@ describe('test suite add to cart', () => {
           "sports",
           "basketballs"
         ]
+      }, {
+        id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+        image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+        name: "Adults Plain Cotton T-Shirt - 2 Pack",
+        rating: {
+          stars: 4.5,
+          count: 56
+        },
+        priceCents: 799,
+        keywords: [
+          "tshirts",
+          "apparel",
+          "mens"
+        ],
       }];
     let productsHTML = '';
     spyOn(localStorage, 'setItem');
@@ -92,12 +106,11 @@ describe('test suite add to cart', () => {
         </button>
       </div>`;
     });
-        
     document.querySelector('.js-products-grid').innerHTML = productsHTML;
-
   });
-
-
+  afterEach(() => {
+    document.querySelector('.js-products-grid').innerHTML = '';
+  });
 
   it('adds an existing product to the cart', () => {
     spyOn(localStorage, 'getItem').and.callFake(() => {
@@ -160,3 +173,31 @@ describe('removing item from cart',() => {
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify(cart));
     });
 })    
+describe('test suite: update delivery option', () => {
+  beforeEach(() => {
+    spyOn(localStorage, 'setItem');
+    spyOn(localStorage, 'getItem').and.callFake(() => {
+      return JSON.stringify([{
+        productId:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+        quantity: 1,
+        deliveryOptionId: '1'
+      }])
+    });
+    loadFromStorage();
+  });
+  it('updates the delvery option', () => {
+    updateDeliveryOption('e43638ce-6aa0-4b85-b27f-e1d07eb678c6','2');
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify(cart));
+    expect(cart[0].deliveryOptionId).toEqual('2')
+    updateDeliveryOption('e43638cebbvgvbjkbbbbbbbb','2')
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(cart[0].deliveryOptionId).toEqual('2')
+    updateDeliveryOption('e43638ce-6aa0-4b85-b27f-e1d07eb678c6','1231273912931')
+    expect(cart[0].deliveryOptionId).toEqual('2')
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+  })
+
+  });
+
+

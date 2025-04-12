@@ -23,8 +23,7 @@ export function getDeliveryOption(deliveryOptionId) {
       deliveryOption = option;
     }
   });
-
-  return deliveryOption || deliveryOptions[0];
+  return deliveryOption;
 };
 
 export function calculateDeliveryDate(deliveryOption) {

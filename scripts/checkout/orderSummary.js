@@ -23,7 +23,7 @@ export function renderOrderSummary() {
      const dateString =  calculateDeliveryDate(deliveryOption);
 
      cartSummaryHTML += `
-       <div 
+      <div 
        class="cart-item-container 
        js-cart-item-container-${matchingProduct.id}
        js-cart-item-container
@@ -69,14 +69,13 @@ export function renderOrderSummary() {
              </span>
            </div>
  
-           <div class="delivery-options">
-           <div class="delivery-options-title">
-             Choose a delivery option:
-           </div>
+        <div class="delivery-options">
+          <div class="delivery-options-title">
+            Choose a delivery option:
+          </div>
            ${deliveryOptionsHTML(matchingProduct, cartItem)}
-           </div>
-           </div>
-       </div>
+        </div>
+      </div>
      `;
    });
  
@@ -96,13 +95,15 @@ export function renderOrderSummary() {
       cartItem.deliveryOptionId;
   
       html += ` 
-        <div class="delivery-option js-delivery-option"
-        data-product-id="${matchingProduct.id}"
-        data-delivery-option-id="${deliveryOption.id}">
+        <div class="delivery-option js-delivery-option js-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
+          data-product-id="${matchingProduct.id}"
+          data-delivery-option-id="${deliveryOption.id}"
+        >
           <input type="radio"
             ${isChecked ? 'checked' : ''}
-            class="delivery-option-input"
-            name="delivery-option-${matchingProduct.id}">
+            class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
+            name="delivery-option-${matchingProduct.id}"
+          >
           <div>
             <div class="delivery-option-date">
               ${dateString}
