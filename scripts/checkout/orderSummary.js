@@ -37,10 +37,10 @@ export function renderOrderSummary() {
              src="${matchingProduct.image}">
  
            <div class="cart-item-details">
-             <div class="product-name">
+             <div class="product-name js-product-name-${matchingProduct.id}">
                ${matchingProduct.name}
              </div>
-             <div class="product-price">
+             <div class="product-price js-product-price-${matchingProduct.id}">
                $${formatCurency(matchingProduct.priceCents)}
              </div>
              <div class="
