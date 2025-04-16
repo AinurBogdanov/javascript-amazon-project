@@ -1,6 +1,6 @@
 import {getDeliveryOption} from "./deliveryOptions.js";
 
-class Cart {
+export class Cart {
   cartItems = undefined;
   #localStorageKey = undefined;
 
@@ -93,14 +93,10 @@ class Cart {
 
 };
 
-
-
-const cart = new Cart('cart.oop'); 
+// const cart = new Cart('cart.oop'); 
  
-const businessCart = new Cart('cart-business');
+// const businessCart = new Cart('cart-business');
  
-
-const cartItems = cart.cartItems;
 
 export function calculateCartQuantity(cartItems) {
   let cartQuantity = 0;
@@ -109,8 +105,3 @@ export function calculateCartQuantity(cartItems) {
    });
   return cartQuantity;
 }
-
-
-console.log(cart)
-console.log(businessCart)
-console.log(businessCart instanceof Cart)
