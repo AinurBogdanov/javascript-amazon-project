@@ -4,7 +4,10 @@ describe('test suite render paymentSummary',() => {
      <div class="js-payment-summary"></div>
   `;
   renderPaymentSummary();
-});
+  });
+  afterEach(() => {
+    document.querySelector('.js-test-contatiner').innerHTML = ``
+  });
   it('displays the prices', () => {
     expect(document.querySelector('.js-payment-total-no-shipping')
     .innerText).toContain('$');
