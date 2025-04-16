@@ -1,5 +1,5 @@
-import { calculateCartQuantity, cart } from '../../data/cart.js';
-
+import { calculateCartQuantity } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 
 export default function renderCheckoutHeader() {
   let checkoutHeadrHTML = `

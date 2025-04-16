@@ -1,20 +1,15 @@
-import { calculateCartQuantity, cart, removeFromCart,
-  updateItemQuantity, saveToStorage, updateDeliveryOption
- } from '../../data/cart.js';
+import {cart} from '../../data/cart-class.js';
 import {getProduct} from '../../data/products.js';
 import { formatCurency } from '../utils/money.js';
 // import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js'
 import renderCheckoutHeader from './checkoutHeader.js'
-import dayjs from 'https://esm.sh/dayjs';
 
 
 export function renderOrderSummary() {
    let cartSummaryHTML = '';
-   let today = dayjs()
-
-   cart.forEach((cartItem) => {
+   cart.cartItems.forEach((cartItem) => {
      const productId = cartItem.productId;
      const matchingProduct = getProduct(productId);
 
@@ -137,7 +132,7 @@ export function renderOrderSummary() {
 
          
 
-         removeFromCart(productId);
+          cart.removeFromCart(productId);
 
          renderCheckoutHeader();
          renderOrderSummary();
@@ -211,8 +206,8 @@ export function renderOrderSummary() {
        newQuantity = 1;
     
      }
-     updateItemQuantity(productId,newQuantity);
-     saveToStorage();
+     cart.updateItemQuantity(productId,newQuantity);
+     cart.saveToStorage();
     renderPaymentSummary();
     renderOrderSummary();
 
@@ -224,7 +219,7 @@ export function renderOrderSummary() {
      .forEach((element) => {
        element.addEventListener('click', () => {
          const {productId, deliveryOptionId} = element.dataset;
-         updateDeliveryOption(productId,deliveryOptionId);
+         cart.updateDeliveryOption(productId,deliveryOptionId);
          renderOrderSummary();
          renderPaymentSummary();
        });

@@ -98,9 +98,9 @@ export const cart = new Cart('cart.oop');
 // const businessCart = new Cart('cart-business');
  
 
-export function calculateCartQuantity(cartItems) {
+export function calculateCartQuantity(cart) {
   let cartQuantity = 0;
-  cartItems.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
    });
   return cartQuantity;
