@@ -1,4 +1,5 @@
-import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
+import { calculateCartQuantity } from '../data/cart.js';
+import { cart } from '../data/cart-class.js'
 import { products } from '../data/products.js';
 import { formatCurency } from './utils/money.js';
 
@@ -73,7 +74,8 @@ function displayAddeMassage(productId) {
   timeOutId = setTimeout(() => {
     jsCartMassage.classList.remove(`added-to-cart-visible`)
   },2000);      
-} 
+}; 
+
 function updateCartQuantity() {
   let cartQuantity = 0;
   
@@ -82,6 +84,7 @@ function updateCartQuantity() {
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity
 };
+
 function addToCartButton() {
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
@@ -89,7 +92,7 @@ function addToCartButton() {
   
         const { productId } = button.dataset;
   
-        addToCart(productId);
+        cart.addToCart(productId);
         updateCartQuantity();
         displayAddeMassage(productId);
       })
