@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* const xml = new XMLHttpRequest();
+    
+    xml.addEventListener('load',() => {
+      console.log(xml.response)
+    })
+    
+    xml.open('GET', 'https://supersimplebackend.dev/greeting');
+    xml.send(); */
+  
+  // function renderRequest() {
+  //   const promiseRequest = fetch(
+  //     'https://supersimplebackend.dev/greeting'
+  //   ).then((response) => {
+  //     return response.text();
+  //   }).then((text) => {
+  //     console.log(text);
+  //   })
+  // } 
+
+  // renderRequest();
+
+
+  // async function greeting() {
+  //   const response = await fetch('https://supersimplebackend.dev/greeting');
+  //   const text = await response.text();
+  //   console.log(text)
+  // }
+  // greeting();
+
+  // async function greetingPost() {
+  //   const response = await fetch('https://supersimplebackend.dev/greeting',{
+  //     method:'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({name: 'Ainur'})
+  //   });
+  //     const text = await response.text();
+  //     console.log(text)
+  // };
+  // greetingPost();
+
+    // async function amazonRequest() {
+    //   try {
+    //     const response = await fetch('GET',"https://amzon.com")
+    //     const text = await response.text();
+    //     console.log(text)
+    //     console.log('пуки каки')
+    //   } catch (error) {
+    //     console.log('пук каки error')
+    //   }
+    // };
+    // amazonRequest();
+    
+  async function greetingPost() {
+    try {
+      const response = await fetch('https://supersimplebackend.dev/greeting',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: 'Ainur'})
+    });
+    if (response.status >= 400 ) {
+      throw response;
+    }
+      const text = await response.text();
+      console.log(text);
+    } catch (error) {
+      if (error.status === 400) {
+        const errorJson = await error.json()
+        console.log(errorJson)
+      } else {
+        console.log('Network error.Please try again later')
+      }
+    }
+   
+
+  };
+  greetingPost();
+
+  </script>
+</body>
+</html>
