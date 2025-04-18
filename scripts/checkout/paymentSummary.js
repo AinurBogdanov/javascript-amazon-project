@@ -12,7 +12,7 @@ export function renderPaymentSummary() {
 
   cart.cartItems.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
-    productPriceCents += product.priceCents * cartItem.quantity
+    productPriceCents += product.priceCents * cartItem.quantity;
 
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
     shippingPriceCents +=  deliveryOption.priceCents;
@@ -81,7 +81,7 @@ export function renderPaymentSummary() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            cart: cart
+            cart: cart.cartItems
           })
         });
   
@@ -91,6 +91,9 @@ export function renderPaymentSummary() {
       } catch (error) {
         console.log('unexpected error. try again later.')
       }
+      cart.cartItems = [];
+      console.log(cart.cartItems);
+      console.log('cart hase been cleared')
     
       window.location.href = 'orders.html';
     });

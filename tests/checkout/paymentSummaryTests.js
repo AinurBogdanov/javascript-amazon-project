@@ -1,5 +1,5 @@
 import {renderPaymentSummary} from '../../scripts/checkout/paymentSummary.js'
-describe('test suite render paymentSummary',() => {
+describe('test suite: render paymentSummary',() => {
   beforeEach(() => {document.querySelector('.js-test-contatiner').innerHTML = `
      <div class="js-payment-summary"></div>
   `;
@@ -20,7 +20,4 @@ describe('test suite render paymentSummary',() => {
     expect(document.querySelector('.js-payment-summary-total')
     .innerText).toContain('$');
   }); 
-  it('makes calculations', () => {
-    
-  });
 });
