@@ -1,4 +1,3 @@
-import { calculateCartQuantity } from '../data/cart.js';
 import { cart } from '../data/cart-class.js'
 import { products,loadProducts} from '../data/products.js';
 import { formatCurency } from './utils/money.js';
@@ -82,7 +81,7 @@ function renderProductsGrid() {
   function updateCartQuantity() {
     let cartQuantity = 0;
     
-    cartQuantity = calculateCartQuantity(cart);
+    cartQuantity = cart.calculateCartQuantity();
   
     document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity
@@ -102,4 +101,5 @@ function renderProductsGrid() {
       });
   }
 }; 
+
 

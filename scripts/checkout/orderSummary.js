@@ -5,20 +5,19 @@ import { formatCurency } from '../utils/money.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import renderCheckoutHeader from './checkoutHeader.js';
-import {loadProductsFetch} from '../../data/products.js';
-
 
 export function renderOrderSummary() {
-  //  loadProductsFetch();
    let cartSummaryHTML = '';
    cart.cartItems.forEach((cartItem) => {
      const productId = cartItem.productId;
+     console.log(cartItem)
      const matchingProduct = getProduct(productId);
-
+    console.log(productId)
      const deliveryOptionId = cartItem.deliveryOptionId;
      const deliveryOption = getDeliveryOption(deliveryOptionId);    
      const dateString =  calculateDeliveryDate(deliveryOption);
 
+     console.log(matchingProduct)
      cartSummaryHTML += `
       <div 
        class="cart-item-container 

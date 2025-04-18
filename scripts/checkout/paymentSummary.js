@@ -13,6 +13,7 @@ export function renderPaymentSummary() {
   cart.cartItems.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity;
+    console.log(product.priceCents)
 
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
     shippingPriceCents +=  deliveryOption.priceCents;
@@ -92,6 +93,7 @@ export function renderPaymentSummary() {
         console.log('unexpected error. try again later.')
       }
       cart.cartItems = [];
+      cart.saveToStorage();
       console.log(cart.cartItems);
       console.log('cart hase been cleared')
     

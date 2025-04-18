@@ -2,7 +2,7 @@ import { getProduct,loadProductsFetch } from "../data/products.js";
 import { orders } from "../data/orders.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11/esm/index.js';
 import { formatCurency } from "./utils/money.js";
-import { Cart } from "../data/cart-class.js";
+import { cart } from '../data/cart-class.js'
 
 //   let orders = orderFromBack || [
 //   { 
@@ -37,10 +37,11 @@ import { Cart } from "../data/cart-class.js";
 //     }]
 //   }
 // ];
-Cart.loadFromStorage();
-console.log(orders);
-console.log(Cart.cartItems);
+
 loadPage();
+renderOrdersHeader();
+
+
 async function loadPage() {
   await loadProductsFetch();
 
@@ -98,14 +99,15 @@ async function loadPage() {
             <div class="product-quantity">
               Quantity: ${product.quantity}
             </div>
-            <button class="buy-again-button button-primary">
+            <button class="buy-again-button button-primary js-buy-again-button" 
+            data-product-id="${product.productId}">
               <img class="buy-again-icon" src="images/icons/buy-again.png">
               <span class="buy-again-message">Buy it again</span>
             </button>
           </div>
 
           <div class="product-actions">
-            <a href="tracking.html?orderId=123&productId=456">
+            <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
               <button class="track-package-button button-secondary">
                 Track package
               </button>
@@ -116,7 +118,50 @@ async function loadPage() {
       return productsListHTML;
     };
   });
-
   document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
 
-}
+  document.querySelectorAll('.js-buy-again-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      console.log(button.dataset.productId);
+      cart.addToCart(button.dataset.productId);
+      renderOrdersHeader();
+    });
+  })
+};
+
+function renderOrdersHeader() {
+  const cartQuantity = cart.calculateCartQuantity(); 
+  const ordersHeaderHTML = `
+      <div class="amazon-header-left-section">
+        <a href="amazon.html" class="header-link">
+          <img class="amazon-logo"
+            src="images/amazon-logo-white.png">
+          <img class="amazon-mobile-logo"
+            src="images/amazon-mobile-logo-white.png">
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+        <input class="search-bar" type="text" placeholder="Search">
+
+        <button class="search-button">
+          <img class="search-icon" src="images/icons/search-icon.png">
+        </button>
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a class="orders-link header-link" href="orders.html">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+        </a>
+
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png">
+          <div class="cart-quantity">${cartQuantity}</div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>
+      `
+  document.querySelector('.amazon-header').innerHTML = ordersHeaderHTML;
+};
+ 

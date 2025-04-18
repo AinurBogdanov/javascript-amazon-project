@@ -1,4 +1,3 @@
-import { calculateCartQuantity } from '../../data/cart.js';
 import { cart } from '../../data/cart-class.js';
 
 export default function renderCheckoutHeader() {
@@ -13,7 +12,7 @@ export default function renderCheckoutHeader() {
 
     <div class="checkout-header-middle-section">
       Checkout (<a class="return-to-home-link js-checkout-quantity"
-        href="amazon.html">${calculateCartQuantity(cart) ? calculateCartQuantity(cart) : 'cart is empty'}</a>)
+        href="amazon.html">${cart.calculateCartQuantity() ? cart.calculateCartQuantity() : 'cart is empty'}</a>)
     </div>
 
     <div class="checkout-header-right-section">
