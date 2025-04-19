@@ -99,12 +99,20 @@ async function loadPage() {
             <div class="product-quantity">
               Quantity: ${product.quantity}
             </div>
-            <button class="buy-again-button button-primary js-buy-again-button" 
-            data-product-id="${product.productId}">
+
+            <button class="buy-again-button button-primary 
+              js-buy-again-button" 
+              data-product-id="${product.productId}">
+
               <img class="buy-again-icon" src="images/icons/buy-again.png">
               <span class="buy-again-message">Buy it again</span>
             </button>
-          </div>
+
+            <div class="added-message js-added-message-${product.productId}">
+              <img class="add-image" src="images/icons/checkmark.png">
+              added
+            </div>            
+            </div>
 
           <div class="product-actions">
             <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
@@ -117,16 +125,41 @@ async function loadPage() {
       });
       return productsListHTML;
     };
-  });
-  document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+    document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
 
-  document.querySelectorAll('.js-buy-again-button').forEach((button) => {
-    button.addEventListener('click', () => {
-      console.log(button.dataset.productId);
-      cart.addToCart(button.dataset.productId);
-      renderOrdersHeader();
-    });
-  })
+    buyItAgainButton()
+    
+    
+    const timeOutIds = {};
+    
+    function buyItAgainButton() {
+      document.querySelectorAll('.js-buy-again-button').forEach((button) => {
+        button.addEventListener('click', () => {
+          const productId = button.dataset.productId;
+          cart.addToCart(productId);
+          renderOrdersHeader();
+          
+          displayAddMassage(productId);
+        });
+      })
+    };
+
+    function displayAddMassage(productId) {
+      if (timeOutIds[productId]) {
+        clearTimeout(timeOutIds[productId]);
+      }
+
+      const messageEl = document.querySelector(`.js-added-message-${productId}`)
+       messageEl.classList.add('add-message-visible')
+
+      timeOutIds[productId] = setTimeout(() => {
+        messageEl.classList.remove('add-message-visible');
+        console.log(timeOutIds)
+        delete timeOutIds[productId];
+        console.log(timeOutIds)
+      }, 2000);
+    }
+  });
 };
 
 function renderOrdersHeader() {
@@ -142,11 +175,12 @@ function renderOrdersHeader() {
       </div>
 
       <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
+        <input class="search-bar js-search-bar" type="text" placeholder="Search">
+    
+          <button class="search-button js-search-button">
+            <img class="search-icon" src="images/icons/search-icon.png">
+          </button>
 
-        <button class="search-button">
-          <img class="search-icon" src="images/icons/search-icon.png">
-        </button>
       </div>
 
       <div class="amazon-header-right-section">
@@ -163,5 +197,27 @@ function renderOrdersHeader() {
       </div>
       `
   document.querySelector('.amazon-header').innerHTML = ordersHeaderHTML;
+
+  makeSearch();
 };
- 
+
+export function makeSearch() {
+  const searchBtn = document.querySelector('.js-search-button');
+  const searchBar = document.querySelector('.js-search-bar');
+
+  searchBtn.addEventListener('click', () => {
+    const inputEl = document.querySelector('.js-search-bar')
+    const search = inputEl.value;
+    window.location.href=`amazon.html?search=${search}`;
+    inputEl.value = '';
+  });
+
+  searchBar.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const inputEl = document.querySelector('.js-search-bar')
+      const search = inputEl.value;
+      window.location.href=`amazon.html?search=${search}`;
+      inputEl.value = '';
+    }
+  });
+}

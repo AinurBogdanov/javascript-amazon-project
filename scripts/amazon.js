@@ -1,7 +1,7 @@
 import { cart } from '../data/cart-class.js'
 import { products, loadProducts} from '../data/products.js';
 import { formatCurency } from './utils/money.js';
-
+import { makeSearch } from './orders.js';
 loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
@@ -82,22 +82,28 @@ function renderProductsGrid() {
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
   
-  let timeOutId;  
   
   updateCartQuantity();
   
   addToCartButton();
   
-  function displayAddeMassage(productId) {
-    const jsCartMassage = document.querySelector(`.js-added-cart-masage-${productId}`);
+  makeSearch();
+
+  const timeOutIds = {};  
+  function displayAddMassage(productId) {
+    const jsCartMassageEl = document.querySelector(`.js-added-cart-masage-${productId}`);
+    jsCartMassageEl.classList.add('added-to-cart-visible');
     
-    jsCartMassage.classList.add('added-to-cart-visible')
-  
-    clearTimeout(timeOutId);
+    if (timeOutIds[productId]) {
+      clearTimeout(timeOutIds[productId]);
+      console.log(timeOutIds[productId]);
+    }
     
-    timeOutId = setTimeout(() => {
-      jsCartMassage.classList.remove(`added-to-cart-visible`)
-    },2000);      
+    timeOutIds[productId] = setTimeout(() => {
+      jsCartMassageEl.classList.remove(`added-to-cart-visible`);
+      delete timeOutIds[productId];
+    },2000);   
+    console.log(timeOutIds[productId])   
   }; 
   
   function updateCartQuantity() {
@@ -118,15 +124,9 @@ function renderProductsGrid() {
     
           cart.addToCart(productId);
           updateCartQuantity();
-          displayAddeMassage(productId);
+          displayAddMassage(productId);
         })
       });
-  }
-
-  document.querySelector('.js-search-button')
-  .addEventListener('click', () => {
-    const search = document.querySelector('.js-search-bar').value;
-    window.location.href=`amazon.html?search=${search}`;
-  });
+  };
 }; 
 
