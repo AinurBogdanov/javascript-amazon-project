@@ -1,8 +1,6 @@
-import { calculateCartQuantity } from '../../data/cart.js'
 import { cart } from '../../data/cart-class.js'
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
-import { formatCurency } from '../utils/money.js';
 import { addOrder } from '../../data/orders.js';
 
 
@@ -30,37 +28,37 @@ export function renderPaymentSummary() {
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (${calculateCartQuantity(cart)})</div>
+      <div>Items (${cart.calculateCartQuantity()})</div>
       <div class="payment-summary-money js-payment-total-no-shipping">
-       $${formatCurency(productPriceCents)}
+       $${cart.calculateCartQuantity()}
       </div>
     </div>
 
     <div class="payment-summary-row">
       <div>Shipping &amp; handling:</div>
       <div class="payment-summary-money js-payment-summary-shipping">
-        $${formatCurency(shippingPriceCents)}
+        $${cart.calculateCartQuantity()}
       </div>
     </div>
 
     <div class="payment-summary-row subtotal-row">
       <div>Total before tax:</div>
       <div class="payment-summary-money js-payment-before-tax">
-       $${formatCurency(totalBeforeTax)}
+       $${cart.calculateCartQuantity()}
       </div>
     </div>
 
     <div class="payment-summary-row">
       <div>Estimated tax (10%):</div>
       <div class="payment-summary-money js-estimated-tax">
-      $${formatCurency(taxCents)}
+      $${cart.calculateCartQuantity()}
       </div>
     </div>
 
     <div class="payment-summary-row total-row">
       <div>Order total:</div>
       <div class="payment-summary-money js-payment-summary-total">
-        $${formatCurency(totalCents)}
+        $${cart.calculateCartQuantity()}
       </div>
     </div>
 

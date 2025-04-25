@@ -1,7 +1,7 @@
 import { cart } from '../data/cart-class.js'
 import { products, loadProducts} from '../data/products.js';
-import { formatCurency } from './utils/money.js';
-import { makeSearch } from './orders.js';
+import { makeSearch } from './shered/fetures.js';
+
 loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
@@ -81,15 +81,13 @@ function renderProductsGrid() {
   });
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
-  
-  
   updateCartQuantity();
-  
   addToCartButton();
-  
   makeSearch();
 
-  const timeOutIds = {};  
+
+  const timeOutIds = {}; 
+
   function displayAddMassage(productId) {
     const jsCartMassageEl = document.querySelector(`.js-added-cart-masage-${productId}`);
     jsCartMassageEl.classList.add('added-to-cart-visible');
@@ -111,6 +109,7 @@ function renderProductsGrid() {
     
     cartQuantity = cart.calculateCartQuantity();
   
+    console.log(cartQuantity);
     document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity
   };
