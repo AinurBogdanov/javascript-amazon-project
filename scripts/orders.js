@@ -4,47 +4,16 @@ import dayjs from 'https://unpkg.com/dayjs@1.11/esm/index.js';
 import { formatCurency } from "./utils/money.js";
 import { cart } from '../data/cart-class.js'
 
-//   let orders = orderFromBack || [
-//   { 
-//     id:"de98a5ea-5f4f-4581-8e5e-55af6f875231",
-//     orderTime:"2025-04-18T02:28:57.176Z",
-
-//     products:[{
-//       productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-//       quantity: 1,
-//       estimatedDeliveryTime:'2025-04-25T02:28:57.176Z', 
-//       variation:null
-//     }, {
-//       productId: 'e4f64a65-1377-42bc-89a5-e572d19252e2', 
-//       quantity: 3, 
-//       estimatedDeliveryTime: '2025-04-25T02:28:57.176Z', 
-//       variation: null
-//     }]
-//   },{
-//     id:"de98a5ea-5f4f-4581-8e5e-55af6f875232",
-//     orderTime:"2025-04-18T02:28:57.176Z",
-
-//     products:[{
-//       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-//       quantity: 2,
-//       estimatedDeliveryTime:'2024-02-25T02:28:57.176Z', 
-//       variation:null
-//     }, {
-//       productId: 'aad29d11-ea98-41ee-9285-b916638cac4a', 
-//       quantity: 3, 
-//       estimatedDeliveryTime: '2025-04-25T02:28:22.176Z', 
-//       variation: null
-//     }]
-//   }
-// ];
-
 loadPage();
-renderOrdersHeader();
 
 
 async function loadPage() {
   await loadProductsFetch();
+  renderOrders();
+  renderOrdersHeader();
+};
 
+function renderOrders() {
   let ordersHTML = '';
   orders.forEach((order) => {
     const orderTimeString = dayjs(order.orderTime).format('MMMM D');
@@ -160,7 +129,7 @@ async function loadPage() {
       }, 2000);
     }
   });
-};
+}
 
 function renderOrdersHeader() {
   const cartQuantity = cart.calculateCartQuantity(); 
@@ -201,7 +170,7 @@ function renderOrdersHeader() {
   makeSearch();
 };
 
-export function makeSearch() {
+function makeSearch() {
   const searchBtn = document.querySelector('.js-search-button');
   const searchBar = document.querySelector('.js-search-bar');
 

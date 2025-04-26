@@ -1,7 +1,6 @@
 import { cart } from '../data/cart-class.js'
 import { products, loadProducts} from '../data/products.js';
-import { formatCurency } from './utils/money.js';
-import { makeSearch } from './orders.js';
+// import { makeSearch } from './orders.js';
 loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
@@ -87,7 +86,7 @@ function renderProductsGrid() {
   
   addToCartButton();
   
-  makeSearch();
+  // makeSearch();
 
   const timeOutIds = {};  
   function displayAddMassage(productId) {
