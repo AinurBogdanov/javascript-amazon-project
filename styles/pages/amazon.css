@@ -1,7 +1,9 @@
 .main {
   margin-top: 60px;
 }
-
+.amazon-header {
+  z-index: 1000;
+}
 .products-grid {
   display: grid;
 
@@ -76,6 +78,7 @@
 
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .product-image-container {
@@ -124,6 +127,40 @@
 
 .product-quantity-container {
   margin-bottom: 17px;
+  display: inline-block;
+}
+
+.size-chart-modal {
+  position:absolute;
+  bottom: -95px;
+  right: -218px;
+  background: rgba(236, 230, 230, 0.869);
+  padding: 10px 20px 30px;
+  width: 350px;
+  z-index:10;
+}
+.size-chart-modal  h3 {
+  margin: 0;
+}
+table td {
+  padding: 4px 8px;
+}
+.hidden {
+  display: none;
+}
+.size-chart-btn,
+.close-chart-btn {
+  border:none;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.525);
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+.close-chart-btn {
+  position:absolute;
+  right:5px;
+  bottom:5px;
 }
 
 .product-spacer {
