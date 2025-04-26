@@ -1,9 +1,11 @@
 import { cart } from '../data/cart-class.js'
-import { products, loadProducts} from '../data/products.js';
-// import { makeSearch } from './orders.js';
-loadProducts(renderProductsGrid);
+import { products, loadProductsFetch, Clothing} from '../data/products.js';
+import { makeSearch } from './shered/fetures.js';
 
-function renderProductsGrid() {
+renderProductsGrid();
+
+async function renderProductsGrid() {
+  await loadProductsFetch();
   let productsHTML = '';
 
   const url = new URLSearchParams(location.search)
@@ -48,23 +50,23 @@ function renderProductsGrid() {
       </div>
   
       <div class="product-price">${product.getPrice()}</div>
-  
-      <div class="product-quantity-container">
-        <select class=js-quantity-selector-${product.id}>
-          <option selected value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+      <div class="product-setings-container">
+        <div class="product-quantity-container">
+          <select class=js-quantity-selector-${product.id}>
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        ${product.extraInfoHTML()}
       </div>
-  
-      ${product.extraInfoHTML()}
   
       <div class="product-spacer"></div>
   
@@ -80,15 +82,19 @@ function renderProductsGrid() {
   });
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
-  
+  filteredProducts.forEach((product) => {
+    if (product instanceof Clothing) {
+      product.initEventListeners();
+    }
+  })
   
   updateCartQuantity();
-  
   addToCartButton();
-  
-  // makeSearch();
+  makeSearch();
 
-  const timeOutIds = {};  
+
+  const timeOutIds = {}; 
+
   function displayAddMassage(productId) {
     const jsCartMassageEl = document.querySelector(`.js-added-cart-masage-${productId}`);
     jsCartMassageEl.classList.add('added-to-cart-visible');
@@ -110,6 +116,7 @@ function renderProductsGrid() {
     
     cartQuantity = cart.calculateCartQuantity();
   
+    console.log(cartQuantity);
     document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity
   };

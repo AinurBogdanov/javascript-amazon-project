@@ -42,19 +42,42 @@ export class Product {
 }
 
 export class Clothing extends Product {
-  sizeChartLink;
-
   constructor(productDetails) {
     super(productDetails);
-    this.sizeChartLink = productDetails.sizeChartLink;
+    
   }
 
   extraInfoHTML() {
     return `
-    <a href="${this.sizeChartLink}" target="_blank">
-      Size chart
-    </a>`;
+    <button class="size-chart-btn js-size-chart-btn-${this.id}">size chart</button>
+    <div class="size-chart-modal js-size-chart-container-${this.id} hidden">
+      <div class="size-shart-content">
+        <h3>Size chart</h3>
+        <table>
+          <tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hips</th></tr>
+          <tr><td>S</td><td>68-89 cm</td><td>66-69 cm</td><td>92-95 cm</td></tr>
+          <tr><td>M</td><td>90-93 cm</td><td>70-73 cm</td><td>96-110 cm</td></tr>
+          <tr><td>L</td><td>94-97 cm</td><td>74-89 cm</td><td>111-125 cm</td></tr>
+        </table>
+        <button class="close-chart-btn js-close-chart-btn-${this.id}">Close</button>
+      </div>
+    </div>
+    `;
   }
+
+  initEventListeners() {
+    const sizeChartBtn = document.querySelector(`.js-size-chart-btn-${this.id}`);
+    const sizeChartCont = document.querySelector(`.js-size-chart-container-${this.id}`);
+    const closeChartBtn = document.querySelector(`.js-close-chart-btn-${this.id}`)
+
+    sizeChartBtn.addEventListener('click',() => {
+      sizeChartCont.classList.remove('hidden');
+    });
+
+    closeChartBtn.addEventListener('click',() => {
+      sizeChartCont.classList.add('hidden');
+    });
+  };
 }
 
 export class Appliance extends Product {
@@ -83,20 +106,21 @@ export function loadProductsFetch() {
   ).then((response) => {
     return response.json(); 
   }).then((productsData) => {
+    console.log(productsData);
     products = productsData.map((productDetails) => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
       } else if (productDetails.type === 'appliance') {
+        console.log('appliance');
         return new Appliance(productDetails);
       } else {
+        console.log('product')
         return new Product(productDetails);
       }
     });
-    console.log('load products');
   }).catch(() => {
     console.log('Unexpected error. Please try again later');
   });
-
   return promise;
 };
 
@@ -119,8 +143,6 @@ export function loadProducts(fun) {
           return new Product(productDetails);
         }
       });
-      console.log('load products');
-
       fun();
   });
 
