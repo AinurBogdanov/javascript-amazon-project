@@ -10,14 +10,11 @@ export function renderOrderSummary() {
    let cartSummaryHTML = '';
    cart.cartItems.forEach((cartItem) => {
      const productId = cartItem.productId;
-     console.log(cartItem)
      const matchingProduct = getProduct(productId);
-    console.log(productId)
      const deliveryOptionId = cartItem.deliveryOptionId;
      const deliveryOption = getDeliveryOption(deliveryOptionId);    
      const dateString =  calculateDeliveryDate(deliveryOption);
 
-     console.log(matchingProduct)
      cartSummaryHTML += `
       <div 
        class="cart-item-container 

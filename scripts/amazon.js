@@ -1,21 +1,21 @@
 import { cart } from '../data/cart-class.js'
-import { products, loadProductsFetch, Clothing} from '../data/products.js';
+import { productSerice, Clothing} from '../data/products.js';
 import { makeSearch } from './shered/fetures.js';
 
 renderProductsGrid();
 
 async function renderProductsGrid() {
-  await loadProductsFetch();
+  await productSerice.loadProductsFetch();
   let productsHTML = '';
 
   const url = new URLSearchParams(location.search)
   const rawSearch =  url.get('search');
   const search = rawSearch ? rawSearch.toLowerCase() : null;
  
-  let filteredProducts = products;
+  let filteredProducts = productSerice.products;
 
   if (search) {
-    filteredProducts = products.filter((product) => {
+    filteredProducts = productSerice.products.filter((product) => {
       const productNameLowerCase = product.name.toLowerCase();
       let hasKeywordMatch = false;
 
@@ -107,16 +107,13 @@ async function renderProductsGrid() {
     timeOutIds[productId] = setTimeout(() => {
       jsCartMassageEl.classList.remove(`added-to-cart-visible`);
       delete timeOutIds[productId];
-    },2000);   
-    console.log(timeOutIds[productId])   
+    },2000);    
   }; 
   
   function updateCartQuantity() {
     let cartQuantity = 0;
     
     cartQuantity = cart.calculateCartQuantity();
-  
-    console.log(cartQuantity);
     document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity
   };
