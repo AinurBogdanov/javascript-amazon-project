@@ -91,9 +91,6 @@
 }
 
 .product-image {
-  /* Images will overflow their container by default. To
-    prevent this, we set max-width and max-height to 100%
-    so they stay inside their container. */
   max-width: 100%;
   max-height: 100%;
 }
@@ -145,11 +142,29 @@
 table td {
   padding: 4px 8px;
 }
+.warranty-modal-content {
+  position:absolute;
+  z-index:100;
+  background-color: rgba(255, 255, 255, 0.897);
+  width: 220px;
+  border:2px solid rgba(0, 0, 0, 0.733);
+  padding: 10px;
+
+}
+.warranty-modal-content h1 {
+  margin:0;
+  font-size: 25px;
+}
+.warranty-modal-content p {
+  font-size: 20px;
+}
 .hidden {
   display: none;
 }
 .size-chart-btn,
-.close-chart-btn {
+.close-chart-btn,
+.show-warranty-btn,
+.hide-warranty-btn {
   border:none;
   border-radius: 20px;
   background-color: white;

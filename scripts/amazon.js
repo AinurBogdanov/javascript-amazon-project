@@ -1,21 +1,21 @@
 import { cart } from '../data/cart-class.js'
-import { productSerice, Clothing} from '../data/products.js';
+import { products, loadProductsFetch, Clothing} from '../data/products.js';
 import { makeSearch } from './shered/fetures.js';
 
 renderProductsGrid();
 
 async function renderProductsGrid() {
-  await productSerice.loadProductsFetch();
+  await loadProductsFetch();
   let productsHTML = '';
 
   const url = new URLSearchParams(location.search)
   const rawSearch =  url.get('search');
   const search = rawSearch ? rawSearch.toLowerCase() : null;
  
-  let filteredProducts = productSerice.products;
+  let filteredProducts = products;
 
   if (search) {
-    filteredProducts = productSerice.products.filter((product) => {
+    filteredProducts = products.filter((product) => {
       const productNameLowerCase = product.name.toLowerCase();
       let hasKeywordMatch = false;
 

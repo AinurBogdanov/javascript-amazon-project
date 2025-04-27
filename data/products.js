@@ -81,19 +81,18 @@ export class Clothing extends Product {
 }
 
 export class Appliance extends Product {
-  instructionsLink;
-  warrantyLink;
-
   constructor(productDetails) {
     super(productDetails);
-    this.instructionsLink = productDetails.instructionsLink;
-    this.warrantyLink = productDetails.warrantyLink;
   }
 
   extraInfoHTML() {
     return `
-    <a href="images/appliance-instructions.png" target="_blank">Instructions</a>
-    <a href="images/appliance-warranty.png" target="_blank">Warranty</a>
+    <button class="show-warranty-btn">Warranty</button>
+    <div class="warranty-modal-content">
+      <h1>Warranty</h1>
+      <p>some warranty text that confirms that the product has all propeties that is     writen on the web site</p>  
+      <button class="hide-warranty-btn">close</button>
+    </div>
     `
   }
 }
