@@ -83,9 +83,7 @@ async function renderProductsGrid() {
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
   
   filteredProducts.forEach((product) => {
-    if (product instanceof Clothing) {
-      product.initEventListeners();
-    }
+    product.initEventListeners();
   })
   
   updateCartQuantity();

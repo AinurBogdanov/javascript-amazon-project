@@ -38,6 +38,9 @@ export class Product {
 
   extraInfoHTML() {
     return '';
+  };
+  initEventListeners() {
+    return;
   }
 }
 
@@ -71,7 +74,11 @@ export class Clothing extends Product {
     const closeChartBtn = document.querySelector(`.js-close-chart-btn-${this.id}`)
 
     sizeChartBtn.addEventListener('click',() => {
-      sizeChartCont.classList.remove('hidden');
+      if (sizeChartCont.classList.contains('hidden')) {
+        sizeChartCont.classList.remove('hidden');
+      } else {
+        sizeChartCont.classList.add('hidden');
+      }
     });
 
     closeChartBtn.addEventListener('click',() => {
@@ -84,14 +91,35 @@ export class Appliance extends Product {
   constructor(productDetails) {
     super(productDetails);
   }
+  initEventListeners() {
+    const openButton = document.querySelector(`.js-show-warranty-btn-${this.id}`);
+    const closeButton = document.querySelector(`.js-hide-warranty-btn-${this.id}`);
+    const container = document.querySelector(`.js-warranty-modal-content-${this.id}`)
+   
+    
+    openButton.addEventListener('click',(event) => {
+      container.classList.remove('hidden');
+      const card = event.target.closest('.product-container');
+      const rect = card.getBoundingClientRect();
+      const popupRect = container.getBoundingClientRect();
+      console.log(popupRect);
 
+      if (rect.left + popupRect.width > window.innerWidth) {
+        container.style.left = 'auto';
+        container.style.right = '0';
+      }
+    });
+    closeButton.addEventListener('click',() => {
+      container.classList.add('hidden');
+    });
+  }
   extraInfoHTML() {
     return `
-    <button class="show-warranty-btn">Warranty</button>
-    <div class="warranty-modal-content">
+    <button class="show-warranty-btn js-show-warranty-btn-${this.id}">Warranty</button>
+    <div class="warranty-modal-content js-warranty-modal-content-${this.id} hidden ">
       <h1>Warranty</h1>
       <p>some warranty text that confirms that the product has all propeties that is     writen on the web site</p>  
-      <button class="hide-warranty-btn">close</button>
+      <button class="hide-warranty-btn js-hide-warranty-btn-${this.id}">close</button>
     </div>
     `
   }
