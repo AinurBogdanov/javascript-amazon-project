@@ -129,8 +129,8 @@
 
 .size-chart-modal {
   position:absolute;
-  bottom: -95px;
-  right: -218px;
+  top: 375px;
+  left: 80px;
   background: rgba(236, 230, 230, 0.869);
   padding: 10px 20px 30px;
   width: 350px;
@@ -144,12 +144,13 @@ table td {
 }
 .warranty-modal-content {
   position:absolute;
+  top: 375px;
+  left: 60px;
   z-index:100;
   background-color: rgba(255, 255, 255, 0.897);
   width: 220px;
   border:2px solid rgba(0, 0, 0, 0.733);
   padding: 10px;
-
 }
 .warranty-modal-content h1 {
   margin:0;

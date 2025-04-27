@@ -74,8 +74,16 @@ export class Clothing extends Product {
     const closeChartBtn = document.querySelector(`.js-close-chart-btn-${this.id}`)
 
     sizeChartBtn.addEventListener('click',() => {
+
       if (sizeChartCont.classList.contains('hidden')) {
         sizeChartCont.classList.remove('hidden');
+        const sizeChartRect = sizeChartCont.getBoundingClientRect();
+        if (sizeChartRect.right > window.innerWidth) {
+          sizeChartCont.style.position = 'fixed';
+          sizeChartCont.style.top = `${sizeChartRect.top}px`;
+          sizeChartCont.style.left = `auto`;
+          sizeChartCont.style.right = '0';
+        }
       } else {
         sizeChartCont.classList.add('hidden');
       }
@@ -96,18 +104,20 @@ export class Appliance extends Product {
     const closeButton = document.querySelector(`.js-hide-warranty-btn-${this.id}`);
     const container = document.querySelector(`.js-warranty-modal-content-${this.id}`)
    
-    
     openButton.addEventListener('click',(event) => {
-      container.classList.remove('hidden');
-      const card = event.target.closest('.product-container');
-      const rect = card.getBoundingClientRect();
-      const popupRect = container.getBoundingClientRect();
-      console.log(popupRect);
-
-      if (rect.left + popupRect.width > window.innerWidth) {
-        container.style.left = 'auto';
-        container.style.right = '0';
+      if (container.classList.contains('hidden')) {
+        container.classList.remove('hidden');
+        const card = event.target.closest('.product-container');
+        const popupRect = container.getBoundingClientRect();
+  
+        if (popupRect.left + popupRect.width > window.innerWidth) {
+          container.style.left = 'auto';
+          container.style.right = '0';
+        }
+      } else {
+        container.classList.add('hidden');
       }
+
     });
     closeButton.addEventListener('click',() => {
       container.classList.add('hidden');
